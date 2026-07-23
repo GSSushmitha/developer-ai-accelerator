@@ -62,6 +62,65 @@ npm install
 npm run quickstart
 ```
 
+## Quick bootstrap for teammates
+
+Prerequisite: Node.js 18 or newer.
+
+Windows PowerShell:
+
+```powershell
+npm run bootstrap:win
+```
+
+macOS or Linux:
+
+```bash
+npm run bootstrap:unix
+```
+
+Both commands install dependencies and run the full workflow.
+
+## How teams use this in daily work
+
+On each PR:
+
+1. Run impact mapping (`npm run impact`)
+2. Generate checklist (`npm run pr:checklist`)
+3. Generate test stubs (`npm run test:stubs`)
+4. Execute targeted tests, then broader regression as needed
+
+Generated artifacts:
+
+- `out/impact-report.json`
+- `out/pr-checklist.txt`
+- `generated-tests/*.spec.js`
+
+## Use this in your own project
+
+1. Copy the `scripts/` and `config/` folders into your repo.
+2. Add these npm scripts into your `package.json`:
+
+```json
+{
+	"scripts": {
+		"impact": "node scripts/change-impact.js",
+		"test:stubs": "node scripts/generate-jasmine-stubs.js",
+		"pr:checklist": "node scripts/pr-checklist.js",
+		"quickstart": "npm run impact && npm run pr:checklist && npm run test:stubs"
+	}
+}
+```
+
+3. Start with `config/module-map.sample.json` and tailor mappings to your modules.
+
+## GitHub Actions support
+
+This repository includes `.github/workflows/ci.yml` so teams not using Azure DevOps can run the same acceleration flow on GitHub:
+
+- Fast feedback: impact report + PR checklist
+- Test assist: generated test stubs
+- Workflow artifacts are uploaded for easy download from each run
+
 ## Push to your remote
 
 ```bash

@@ -7,7 +7,9 @@
     "impact": "node scripts/change-impact.js",
     "test:stubs": "node scripts/generate-jasmine-stubs.js",
     "pr:checklist": "node scripts/pr-checklist.js",
-    "quickstart": "npm run impact && npm run pr:checklist && npm run test:stubs"
+    "quickstart": "npm run impact && npm run pr:checklist && npm run test:stubs",
+    "bootstrap:win": "powershell -ExecutionPolicy Bypass -File scripts/bootstrap.ps1",
+    "bootstrap:unix": "bash ./scripts/bootstrap.sh"
   },
   "engines": {
     "node": ">=18"

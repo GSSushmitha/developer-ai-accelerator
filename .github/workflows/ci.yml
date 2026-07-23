@@ -1,0 +1,68 @@
+name: Developer AI Accelerator CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  fast-feedback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Change impact mapping
+        run: npm run impact
+
+      - name: PR checklist generation
+        run: npm run pr:checklist
+
+      - name: Upload fast feedback artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: fast-feedback
+          path: |
+            out/impact-report.json
+            out/pr-checklist.txt
+          if-no-files-found: warn
+
+  test-assist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate test stubs
+        run: npm run test:stubs
+
+      - name: Upload generated test stubs
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-tests
+          path: generated-tests/
+          if-no-files-found: warn
