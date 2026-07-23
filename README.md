@@ -62,6 +62,57 @@ npm install
 npm run quickstart
 ```
 
+## Internal npm package workflow (recommended)
+
+Instead of copying files into every repository, publish this as an internal npm package and run it with `npx` from any source repo.
+
+### 1) Publish this package to your internal registry
+
+Example once your registry authentication is configured:
+
+```bash
+npm publish --access restricted
+```
+
+### 2) Install in a source code repository
+
+```bash
+npm install --save-dev developer-ai-accelerator
+```
+
+### 3) Run in that source repository
+
+```bash
+npx developer-ai-accelerator quickstart
+```
+
+Or run individual steps:
+
+```bash
+npx developer-ai-accelerator impact
+npx developer-ai-accelerator pr:checklist
+npx developer-ai-accelerator test:stubs
+```
+
+### 4) Optional npm script shortcuts in source repositories
+
+```json
+{
+	"scripts": {
+		"impact": "developer-ai-accelerator impact",
+		"pr:checklist": "developer-ai-accelerator pr:checklist",
+		"test:stubs": "developer-ai-accelerator test:stubs",
+		"quickstart": "developer-ai-accelerator quickstart"
+	}
+}
+```
+
+Outputs are generated in the source repository where the command is run:
+
+- `out/impact-report.json`
+- `out/pr-checklist.txt`
+- `generated-tests/*.spec.js`
+
 ## Quick bootstrap for teammates
 
 Prerequisite: Node.js 18 or newer.
@@ -97,8 +148,9 @@ Generated artifacts:
 
 ## Use this in your own project
 
-1. Copy the `scripts/` and `config/` folders into your repo.
-2. Add these npm scripts into your `package.json`:
+1. Preferred: install this package and run it with `npx developer-ai-accelerator quickstart`.
+2. Alternative: copy the `scripts/` and `config/` folders into your repo.
+3. If copied directly, add these npm scripts into your `package.json`:
 
 ```json
 {
@@ -111,7 +163,7 @@ Generated artifacts:
 }
 ```
 
-3. Start with `config/module-map.sample.json` and tailor mappings to your modules.
+4. Start with `config/module-map.sample.json` and tailor mappings to your modules.
 
 ## GitHub Actions support
 
