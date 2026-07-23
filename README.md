@@ -66,21 +66,44 @@ npm run quickstart
 
 Instead of copying files into every repository, publish this as an internal npm package and run it with `npx` from any source repo.
 
-### 1) Publish this package to your internal registry
+### 1) Configure GitHub authentication
 
-Example once your registry authentication is configured:
+Create a `.npmrc` file in your home directory (`~/.npmrc` on Mac/Linux or `%USERPROFILE%\.npmrc` on Windows):
 
-```bash
-npm publish --access restricted
+```
+@gsushmitha:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PERSONAL_ACCESS_TOKEN
 ```
 
-### 2) Install in a source code repository
+**To get a token:**
+1. Go to GitHub Settings > Developer settings > Personal access tokens > Tokens (classic)
+2. Generate new token with scopes: `write:packages`, `read:packages`, `delete:packages`
+3. Save the token safely; you'll only see it once
+
+Paste the token in the `.npmrc` file.
+
+### 2) Publish this package
+
+First time from this repo:
 
 ```bash
-npm install --save-dev developer-ai-accelerator
+npm publish
 ```
 
-### 3) Run in that source repository
+To update version and republish:
+
+```bash
+npm version patch
+npm publish
+```
+
+### 3) Install in any source code repository
+
+```bash
+npm install --save-dev @gsushmitha/developer-ai-accelerator
+```
+
+### 4) Run in that source repository
 
 ```bash
 npx developer-ai-accelerator quickstart
@@ -94,11 +117,9 @@ npx developer-ai-accelerator pr:checklist
 npx developer-ai-accelerator test:stubs
 ```
 
-### 4) Optional npm script shortcuts in source repositories
+### 5) Optional npm script shortcuts in source repositories
 
-```json
-{
-	"scripts": {
+Add to your source repo's `package.json`:
 		"impact": "developer-ai-accelerator impact",
 		"pr:checklist": "developer-ai-accelerator pr:checklist",
 		"test:stubs": "developer-ai-accelerator test:stubs",
