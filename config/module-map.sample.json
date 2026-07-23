@@ -1,0 +1,8 @@
+{
+  "src/alarm": ["test/unit/alarm"],
+  "src/trend": ["test/unit/trend"],
+  "src/common": ["test/unit/common"],
+  "src/processdiagnostic": ["test/unit/processdiagnostic"],
+  "templates": ["test/ui/templates"],
+  "styles": ["test/ui/styles"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "developer-ai-accelerator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Team-wide agentic AI workflows to reduce development and testing time",
+  "scripts": {
+    "impact": "node scripts/change-impact.js",
+    "test:stubs": "node scripts/generate-jasmine-stubs.js",
+    "pr:checklist": "node scripts/pr-checklist.js",
+    "quickstart": "npm run impact && npm run pr:checklist && npm run test:stubs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

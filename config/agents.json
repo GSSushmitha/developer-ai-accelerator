@@ -1,0 +1,22 @@
+{
+  "agents": [
+    {
+      "name": "pr-review-agent",
+      "goal": "Reduce review effort by flagging risk, regressions, and missing tests",
+      "input": ["diff", "changedFiles", "codingGuidelines"],
+      "output": ["riskSummary", "mustFix", "suggestions"]
+    },
+    {
+      "name": "unit-test-generator-agent",
+      "goal": "Reduce test authoring time by generating initial unit test skeletons",
+      "input": ["changedSourceFiles", "existingTests"],
+      "output": ["testStubs", "edgeCases"]
+    },
+    {
+      "name": "change-impact-agent",
+      "goal": "Reduce test execution time by selecting only impacted suites",
+      "input": ["changedFiles", "moduleMap"],
+      "output": ["impactedAreas", "recommendedTestPlan"]
+    }
+  ]
+}
